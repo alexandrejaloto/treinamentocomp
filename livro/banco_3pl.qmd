@@ -38,6 +38,7 @@ Para a Rodada V1, os itens com problemas de parâmetro, com DIF ou com ajuste ru
 
 Os itens que atendam a pelo menos um dos seguintes critérios devem ser excluídos por problemas de parâmetro:
 
+
 1. `a < 0.5`
 2. `a > 4.0`
 3. parâmetro b fora do intervalo de `–2.5 a 2.5`

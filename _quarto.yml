@@ -1,0 +1,14 @@
+project:
+  type: book
+
+book:
+  title: "Treinamento COMP"
+  author: "Alexandre Jaloto"
+  date: "01/13/2025"
+  chapters:
+    - index.qmd
+    - capitulos/banco_3pl.qmd
+
+format:
+  html:
+    theme: cosmo

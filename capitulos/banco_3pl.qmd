@@ -1,0 +1,25 @@
+# Banco 3PL
+
+## Características do banco
+
+O objeto `banco.sim.3PL` do pacote `INEPsico` contém dois elementos. O elemento `respostas` é um banco com 3.000 respostas e 45 itens de múltipla escolha. As respostas possíveis são "A", "B", "C", "D", "E", ".", "*". As respostas foram simuladas e todos os sujeitos responderam os 45 itens do instrumento. O elemento `gabarito` contém o gabarito dos 45 itens desse instrumento.
+
+## Objetivo
+
+Analisar o instrumento por meio da Teoria Clássica dos Testes (TCT) e Teoria de Resposta ao Item (TRI).
+
+## Resumo das etapas de análise
+
+1. Análise pela TCT (verificação da correlação bisserial do item e de possíveis inconsistências no gabarito)
+2. Análise pela TRI (calibração, avaliação dos parâmetros, análise de DIF e análise de desajuste)
+
+## Análise pela TCT
+
+No pacote `INEPsico`, a análise é feita com a função `tct`. Caso você tenha dúvida sobre os argumentos, rode `?INEPsico::tct`. É preciso ter atenção com dois argumentos:
+
+  * `alt`: o padrão da função é quatro alternativas e neste caso são cinco;
+* `usa.normit`: o padrão da função é `TRUE` e para este caso deve-se usar `FALSE`, pois todas os sujeitos respondem os mesmos itens (e.g., não há BIB).
+
+Após armazenar o resultado da TCT em um objeto, use a função `INEPsico::INEPsico::compara.sim.tct` para comparar seus resultados com o esperado.
+
+## Análise pela TRI

@@ -1,9 +1,0 @@
-delete_merged_file: true # Deleta o arquivo Rmd mesclado (opcional)
-language:
-  ui:
-    edit: "Editar"
-    chapter_name: "Capítulo "
-rmd_files: [
-  "index.Rmd",
-  "banco_3pl.Rmd"
-]

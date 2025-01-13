@@ -1,0 +1,102 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Treinamento COMP",
+    "section": "",
+    "text": "1 Introdução\nA Coordenação de Medidas Psicométricas dos Exames (COMPEX) e a Coordenação de Medidas Psicométricas das Avaliações (COMPAV) integram a Coordenação-Geral de Medidas da Educação Básica (CGMEB). A COMPEX e a COMPAV são responsáveis pelas análises estatísticas e psicométricas dos instrumentos aplicados na Educação Básica, o que inclui testes de desempenho e questionários contextuais.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#objetivo",
+    "href": "index.html#objetivo",
+    "title": "Treinamento COMP",
+    "section": "1.1 Objetivo",
+    "text": "1.1 Objetivo\nEste livro oferece material para treinamento em serviço dos(as) integrantes da COMPEX e COMPAV. O objetivo é apresentar a rotina das análises psicométricas de forma aplicada. As análises envolvem manipulação de banco de dados, análise de instrumento baseada na Teoria Clássica dos Testes (TCT) e análise de instrumento baseada na Teoria de Resposta ao Item (TRI). Esta versão do livro contém apenas a análise de um banco de dados simples. Espera-se que o material seja ampliado e atualizado.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#competências-prévias-esperadas",
+    "href": "index.html#competências-prévias-esperadas",
+    "title": "Treinamento COMP",
+    "section": "1.2 Competências prévias esperadas",
+    "text": "1.2 Competências prévias esperadas\nEspera-se que você seja capaz de manipular bancos de dados no R. Caso não tenha as competências necessárias para essa tarefa, existem cursos gratuitos e pagos. Além disso, os colegas costumam compartilhar seus conhecimentos sobre o R.\nEspera-se também que você domine os conceitos básicos da psicometria, especialmente relacionados à TCT, análise fatorial e TRI. Cursos gratuitos sobre a temática são mais difíceis, mas os colegas também costumam compartilhar seus conhecimentos sobre psicometria.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#estrutura-do-livro",
+    "href": "index.html#estrutura-do-livro",
+    "title": "Treinamento COMP",
+    "section": "1.3 Estrutura do livro",
+    "text": "1.3 Estrutura do livro\nO livro apresenta as etapas para a análise de um banco de dados simulado. A cada etapa concluída, você deve verificar se os seus resultados estão iguais aos resultados esperados. Tanto o banco de dados quanto as funções para análises e verificação dos resultados estão no pacote INEPsico, disponível no Github.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#antes-de-começar",
+    "href": "index.html#antes-de-começar",
+    "title": "Treinamento COMP",
+    "section": "1.4 Antes de começar",
+    "text": "1.4 Antes de começar\nCertifique-se de que você tem o RStudio instalado em sua máquina. Após isso, instale os seguintes pacotes: mirt, devtools e INEPsico. Para instalar o pacote INEPsico, use devtools::install_github('alexandrejaloto/INEPsico).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução</span>"
+    ]
+  },
+  {
+    "objectID": "capitulos/banco_3pl.html",
+    "href": "capitulos/banco_3pl.html",
+    "title": "2  Banco 3PL",
+    "section": "",
+    "text": "2.1 Características do banco\nO objeto banco.sim.3PL do pacote INEPsico contém dois elementos. O elemento respostas é um banco com 3.000 respostas e 45 itens de múltipla escolha. As respostas possíveis são “A”, “B”, “C”, “D”, “E”, “.”, “*“. As respostas foram simuladas e todos os sujeitos responderam os 45 itens do instrumento. O elemento gabarito contém o gabarito dos 45 itens desse instrumento.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Banco 3PL</span>"
+    ]
+  },
+  {
+    "objectID": "capitulos/banco_3pl.html#objetivo",
+    "href": "capitulos/banco_3pl.html#objetivo",
+    "title": "2  Banco 3PL",
+    "section": "2.2 Objetivo",
+    "text": "2.2 Objetivo\nAnalisar o instrumento por meio da Teoria Clássica dos Testes (TCT) e Teoria de Resposta ao Item (TRI).",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Banco 3PL</span>"
+    ]
+  },
+  {
+    "objectID": "capitulos/banco_3pl.html#resumo-das-etapas-de-análise",
+    "href": "capitulos/banco_3pl.html#resumo-das-etapas-de-análise",
+    "title": "2  Banco 3PL",
+    "section": "2.3 Resumo das etapas de análise",
+    "text": "2.3 Resumo das etapas de análise\n\nAnálise pela TCT (verificação da correlação bisserial do item e de possíveis inconsistências no gabarito)\nAnálise pela TRI (calibração, avaliação dos parâmetros, análise de DIF e análise de desajuste)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Banco 3PL</span>"
+    ]
+  },
+  {
+    "objectID": "capitulos/banco_3pl.html#análise-pela-tct",
+    "href": "capitulos/banco_3pl.html#análise-pela-tct",
+    "title": "2  Banco 3PL",
+    "section": "2.4 Análise pela TCT",
+    "text": "2.4 Análise pela TCT\nNo pacote INEPsico, a análise é feita com a função tct. Caso você tenha dúvida sobre os argumentos, rode ?INEPsico::tct. É preciso ter atenção com dois argumentos:\n\nalt: o padrão da função é quatro alternativas e neste caso são cinco;\nusa.normit: o padrão da função é TRUE e para este caso deve-se usar FALSE, pois todas os sujeitos respondem os mesmos itens (e.g., não há BIB).\n\nApós armazenar o resultado da TCT em um objeto, use a função INEPsico::INEPsico::compara.sim.tct para comparar seus resultados com o esperado.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Banco 3PL</span>"
+    ]
+  },
+  {
+    "objectID": "capitulos/banco_3pl.html#análise-pela-tri",
+    "href": "capitulos/banco_3pl.html#análise-pela-tri",
+    "title": "2  Banco 3PL",
+    "section": "2.5 Análise pela TRI",
+    "text": "2.5 Análise pela TRI",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Banco 3PL</span>"
+    ]
+  }
+]

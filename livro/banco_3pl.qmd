@@ -46,7 +46,6 @@ Os itens que atendam a pelo menos um dos seguintes critérios devem ser excluíd
 
 A análise de DIF e desajuste é feita com quatro métodos:
 
-
 1. Maxadif (0,15) no intervalo entre P05 e P95;
 2. RMSD;
 3. MaxAjuste (0,15) no intervalo entre P05 e P95;
@@ -55,19 +54,3 @@ A análise de DIF e desajuste é feita com quatro métodos:
 Os itens marcados por pelo menos um método são excluídos para a Rodada V1. A função `INEPsico::dif.mirt` faz essa análise.
 
 Para comparar os seus resultados com os oficiais, use `INEPsico::compara.sim.tri.v1`.
-
-A análise de DIF e desajuste é feita com quatro métodos:
-
-
-* Maxadif (0,15) no intervalo entre P05 e P95;
-* RMSD;
-* MaxAjuste (0,15) no intervalo entre P05 e P95;
-* Regressão logística com tamanho de efeito (p < 0.05 & diferença do pseudo R2 > 0.035).
-
-A análise de DIF e desajuste é feita com quatro métodos:
-
-
- 1. Maxadif (0,15) no intervalo entre P05 e P95;
-2. RMSD;
-3. MaxAjuste (0,15) no intervalo entre P05 e P95;
-4. Regressão logística com tamanho de efeito (p < 0.05 & diferença do pseudo R2 > 0.035).

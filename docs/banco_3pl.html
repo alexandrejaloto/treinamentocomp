@@ -212,6 +212,20 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Os itens marcados por pelo menos um método são excluídos para a Rodada V1. A função <code>INEPsico::dif.mirt</code> faz essa análise.</p>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v1</code>.</p>
+<p>A análise de DIF e desajuste é feita com quatro métodos:</p>
+<ul>
+<li>Maxadif (0,15) no intervalo entre P05 e P95;</li>
+<li>RMSD;</li>
+<li>MaxAjuste (0,15) no intervalo entre P05 e P95;</li>
+<li>Regressão logística com tamanho de efeito (p &lt; 0.05 &amp; diferença do pseudo R2 &gt; 0.035).</li>
+</ul>
+<p>A análise de DIF e desajuste é feita com quatro métodos:</p>
+<ol type="1">
+<li>Maxadif (0,15) no intervalo entre P05 e P95;</li>
+<li>RMSD;</li>
+<li>MaxAjuste (0,15) no intervalo entre P05 e P95;</li>
+<li>Regressão logística com tamanho de efeito (p &lt; 0.05 &amp; diferença do pseudo R2 &gt; 0.035).</li>
+</ol>
 
 
 </section>

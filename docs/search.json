@@ -20,11 +20,11 @@
     ]
   },
   {
-    "objectID": "index.html#competências-prévias-esperadas",
-    "href": "index.html#competências-prévias-esperadas",
+    "objectID": "index.html#competências-prévias-necessárias",
+    "href": "index.html#competências-prévias-necessárias",
     "title": "Treinamento COMP",
-    "section": "1.2 Competências prévias esperadas",
-    "text": "1.2 Competências prévias esperadas\nEspera-se que você seja capaz de manipular bancos de dados no R. Caso não tenha as competências necessárias para essa tarefa, existem cursos gratuitos e pagos. Além disso, os colegas costumam compartilhar seus conhecimentos sobre o R.\nEspera-se também que você domine os conceitos básicos da psicometria, especialmente relacionados à TCT, análise fatorial e TRI. Cursos gratuitos sobre a temática são mais difíceis, mas os colegas também costumam compartilhar seus conhecimentos sobre psicometria.",
+    "section": "1.2 Competências prévias necessárias",
+    "text": "1.2 Competências prévias necessárias\nEspera-se que você seja capaz de manipular bancos de dados no R. Caso não tenha as competências necessárias para essa tarefa, existem cursos gratuitos e pagos. Além disso, os colegas costumam compartilhar seus conhecimentos sobre o R.\nEspera-se também que você domine os conceitos básicos da psicometria, especialmente relacionados à TCT, análise fatorial e TRI. Cursos gratuitos sobre a temática são mais difíceis, mas os colegas também costumam compartilhar seus conhecimentos sobre psicometria.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução</span>"
     ]
@@ -84,7 +84,7 @@
     "href": "capitulos/banco_3pl.html#análise-pela-tct",
     "title": "2  Banco 3PL",
     "section": "2.4 Análise pela TCT",
-    "text": "2.4 Análise pela TCT\nNo pacote INEPsico, a análise é feita com a função tct. Caso você tenha dúvida sobre os argumentos, rode ?INEPsico::tct. É preciso ter atenção com dois argumentos:\n\nalt: o padrão da função é quatro alternativas e neste caso são cinco;\nusa.normit: o padrão da função é TRUE e para este caso deve-se usar FALSE, pois todas os sujeitos respondem os mesmos itens (e.g., não há BIB).\n\nApós armazenar o resultado da TCT em um objeto, use a função INEPsico::INEPsico::compara.sim.tct para comparar seus resultados com o esperado.",
+    "text": "2.4 Análise pela TCT\nNo pacote INEPsico, a análise é feita com a função tct. Caso você tenha dúvida sobre os argumentos, rode ?INEPsico::tct. É preciso ter atenção com dois argumentos:\n\nalt: o padrão da função é quatro alternativas e neste caso são cinco;\nusa.normit: o padrão da função é TRUE e para este caso deve-se usar FALSE, pois todas os sujeitos respondem os mesmos itens (e.g., não há BIB).\n\nApós armazenar o resultado da TCT em um objeto, use a função INEPsico::compara.sim.tct para comparar seus resultados com o esperado.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Banco 3PL</span>"
     ]
@@ -94,7 +94,7 @@
     "href": "capitulos/banco_3pl.html#análise-pela-tri",
     "title": "2  Banco 3PL",
     "section": "2.5 Análise pela TRI",
-    "text": "2.5 Análise pela TRI",
+    "text": "2.5 Análise pela TRI\n\n2.5.1 Rodada V0\nA Rodada V0 é feita com todos os itens, a não ser que a equipe pedagógica tenha excluído algum. Não é o caso para este banco, então a próxima ação é a correção das respostas. Ou seja, as respostas devem ser dicotomizadas. Isso pode ser feito pela função mirt::key2binary.\nÉ necessário configurar os valores iniciais e as distribuições prévias dos parâmetros. Uma forma de fazer isso é alterar a tabela de parâmetros, que é gerada com o argumento pars = 'values' da função mirt::mirt. Os valores das distribuições prévias são os mesmos do padrão do BILOG-MG. Neste programa, a média e o desvio da distribuição log-normal do parâmetro a são 1.0 e 1.64872127, respectivamente. No pacote mirt, indica-se o logaritmo da média e do desvio. Portanto, os valores são 0 e 0.5. Para o parâmetro c, que segue distribuição beta, o coeficiente alpha é obtido por 20*p+1 e o beta, por 20*(1-p)+1, onde ‘p’ é o inverso do número de alternativas. Os demais argumentos para a função mirt são: model = 1, TOL = 0.001, SE = TRUE, pars = par, onde parcorresponde à tabela de parâmetros gerada.\nPara comparar os seus resultados com os oficiais, use INEPsico::compara.sim.tri.v0.\n\n\n2.5.2 Rodada V1\nPara a Rodada V1, os itens com problemas de parâmetro, com DIF ou com ajuste ruim são excluídos. Neste livro, a Rodada V1 será feita após a exclusão conjunta de todos esses itens.\nOs itens que atendam a pelo menos um dos seguintes critérios devem ser excluídos por problemas de parâmetro: 1. a &lt; 0.5 2. a &gt; 4.0 3. parâmetro b fora do intervalo de –2.5 a 2.5 4. c &gt; 0.45\nA análise de DIF e desajuste é feita com quatro métodos: 1. Maxadif (0,15) no intervalo entre P05 e P95; 2. RMSD; 3. MaxAjuste (0,15) no intervalo entre P05 e P95; 4. Regressão logística com tamanho de efeito (p &lt; 0.05 & diferença do pseudo R2 &gt; 0.035).\nOs itens marcados por pelo menos um método são excluídos para a Rodada V1. A função INEPsico::dif.mirt faz essa análise.\nPara comparar os seus resultados com os oficiais, use INEPsico::compara.sim.tri.v1.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Banco 3PL</span>"
     ]

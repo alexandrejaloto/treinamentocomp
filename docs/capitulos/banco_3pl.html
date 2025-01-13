@@ -131,7 +131,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo"><span class="header-section-number">2.2</span> Objetivo</a></li>
   <li><a href="#resumo-das-etapas-de-análise" id="toc-resumo-das-etapas-de-análise" class="nav-link" data-scroll-target="#resumo-das-etapas-de-análise"><span class="header-section-number">2.3</span> Resumo das etapas de análise</a></li>
   <li><a href="#análise-pela-tct" id="toc-análise-pela-tct" class="nav-link" data-scroll-target="#análise-pela-tct"><span class="header-section-number">2.4</span> Análise pela TCT</a></li>
-  <li><a href="#análise-pela-tri" id="toc-análise-pela-tri" class="nav-link" data-scroll-target="#análise-pela-tri"><span class="header-section-number">2.5</span> Análise pela TRI</a></li>
+  <li><a href="#análise-pela-tri" id="toc-análise-pela-tri" class="nav-link" data-scroll-target="#análise-pela-tri"><span class="header-section-number">2.5</span> Análise pela TRI</a>
+  <ul class="collapse">
+  <li><a href="#rodada-v0" id="toc-rodada-v0" class="nav-link" data-scroll-target="#rodada-v0"><span class="header-section-number">2.5.1</span> Rodada V0</a></li>
+  <li><a href="#rodada-v1" id="toc-rodada-v1" class="nav-link" data-scroll-target="#rodada-v1"><span class="header-section-number">2.5.2</span> Rodada V1</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -179,12 +183,26 @@ ul.task-list li input[type="checkbox"] {
 <li><code>alt</code>: o padrão da função é quatro alternativas e neste caso são cinco;</li>
 <li><code>usa.normit</code>: o padrão da função é <code>TRUE</code> e para este caso deve-se usar <code>FALSE</code>, pois todas os sujeitos respondem os mesmos itens (e.g., não há BIB).</li>
 </ul>
-<p>Após armazenar o resultado da TCT em um objeto, use a função <code>INEPsico::INEPsico::compara.sim.tct</code> para comparar seus resultados com o esperado.</p>
+<p>Após armazenar o resultado da TCT em um objeto, use a função <code>INEPsico::compara.sim.tct</code> para comparar seus resultados com o esperado.</p>
 </section>
 <section id="análise-pela-tri" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="análise-pela-tri"><span class="header-section-number">2.5</span> Análise pela TRI</h2>
+<section id="rodada-v0" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="rodada-v0"><span class="header-section-number">2.5.1</span> Rodada V0</h3>
+<p>A Rodada V0 é feita com todos os itens, a não ser que a equipe pedagógica tenha excluído algum. Não é o caso para este banco, então a próxima ação é a correção das respostas. Ou seja, as respostas devem ser dicotomizadas. Isso pode ser feito pela função <code>mirt::key2binary</code>.</p>
+<p>É necessário configurar os valores iniciais e as distribuições prévias dos parâmetros. Uma forma de fazer isso é alterar a tabela de parâmetros, que é gerada com o argumento <code>pars = 'values'</code> da função <code>mirt::mirt</code>. Os valores das distribuições prévias são os mesmos do padrão do BILOG-MG. Neste programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente. No pacote <code>mirt</code>, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0</code> e <code>0.5</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas. Os demais argumentos para a função <code>mirt</code> são: <code>model = 1, TOL = 0.001, SE = TRUE, pars = par</code>, onde <code>par</code>corresponde à tabela de parâmetros gerada.</p>
+<p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v0</code>.</p>
+</section>
+<section id="rodada-v1" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="rodada-v1"><span class="header-section-number">2.5.2</span> Rodada V1</h3>
+<p>Para a Rodada V1, os itens com problemas de parâmetro, com DIF ou com ajuste ruim são excluídos. Neste livro, a Rodada V1 será feita após a exclusão conjunta de todos esses itens.</p>
+<p>Os itens que atendam a pelo menos um dos seguintes critérios devem ser excluídos por problemas de parâmetro: 1. <code>a &lt; 0.5</code> 2. <code>a &gt; 4.0</code> 3. parâmetro b fora do intervalo de <code>–2.5 a 2.5</code> 4. <code>c &gt; 0.45</code></p>
+<p>A análise de DIF e desajuste é feita com quatro métodos: 1. Maxadif (0,15) no intervalo entre P05 e P95; 2. RMSD; 3. MaxAjuste (0,15) no intervalo entre P05 e P95; 4. Regressão logística com tamanho de efeito (p &lt; 0.05 &amp; diferença do pseudo R2 &gt; 0.035).</p>
+<p>Os itens marcados por pelo menos um método são excluídos para a Rodada V1. A função <code>INEPsico::dif.mirt</code> faz essa análise.</p>
+<p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v1</code>.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

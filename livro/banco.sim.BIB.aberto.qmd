@@ -1,0 +1,15 @@
+# Banco simulado em BIB com formato aberto
+
+## Objetivo
+
+Analisar o instrumento por meio da Teoria Clássica dos Testes (TCT) e Teoria de Resposta ao Item (TRI).
+
+## Características do banco
+
+O objeto `banco.sim.BIB.aberto` do pacote `INEPsico` contém quatro elementos.
+1. `respostas` é um banco com 10.000 respostas e 77 itens de múltipla escolha. As respostas possíveis são "A", "B", "C", "D", "E", ".", "*". As respostas foram simuladas e os sujeitos responderam a 22 itens do instrumento. O banco está aberto, ou seja, cada coluna corresponde a um item e os sujeitos que não responderam a determinado item recebem `NA`;
+2. `gabarito` contém o gabarito dos 77 itens desse instrumento;
+3. `BIB` contém o desenho do BIB;
+4. `itens` corresponde ao dicionário dos itens.
+
+Para acessar o banco, rode `data(banco.sim.BIB.aberto, package = 'INEPsico')` e em seguida use `banco.sim.BIB.aberto` para explorá-lo.

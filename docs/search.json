@@ -74,7 +74,7 @@
     "href": "protocolo.html#análise-pela-tct",
     "title": "2  Protocolo de análise",
     "section": "2.2 Análise pela TCT",
-    "text": "2.2 Análise pela TCT\nO objetivo é verificar inconsistências e problemas pedagógicos nos itens. Os itens que atendam a pelo menos um dos seguintes critérios devem ser recomendados para a revisão pedagógica:\n\ncorrelação bisserial do gabarito menor do que 0.30\ncorrelação de algum distrator maior do que 0.05\ndiscriminação (índice D) menor do que 0.20\n\nNo pacote INEPsico, a análise é feita com a função tct. Caso você tenha dúvida sobre os argumentos, rode ?INEPsico::tct.",
+    "text": "2.2 Análise pela TCT\nO objetivo é verificar inconsistências e problemas pedagógicos nos itens. Os itens que atendam a pelo menos um dos seguintes critérios devem ser recomendados para a revisão pedagógica:\n\ncorrelação bisserial do gabarito menor do que 0.30\ncorrelação de algum distrator maior do que 0.05\ndiscriminação (índice D) menor do que 0.20\n\nNo pacote INEPsico, a análise é feita com a função tct. Caso você tenha dúvida sobre os argumentos, rode ?INEPsico::tct.\nDestaca-se que a análise é feita com o banco aberto. Ou seja, cada coluna do banco corresponde a um item e os sujeitos que não responderam ao item recebem NA. A função INEPsico::abre.banco gera um banco aberto.\nPara comparar os seus resultados com os oficiais, use INEPsico::compara.sim.tct.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Protocolo de análise</span>"
     ]
@@ -84,7 +84,7 @@
     "href": "protocolo.html#análise-pela-tri",
     "title": "2  Protocolo de análise",
     "section": "2.3 Análise pela TRI",
-    "text": "2.3 Análise pela TRI\nO objetivo da análise pela TRI é calibrar os itens novos na escala existente e calcular as notas dos sujeitos no caso de aplicação oficial.\n\n2.3.1 Rodada V0\nAs únicas alterações nos itens devem ser: - as recomendadas pela equipe pedagógica após análise pela TCT e pela análise fatorial (e.g., abandono de item e alteração de gabarito) - exclusão dos itens com bisserial negativa (TCT somente com IME)\nA Rodada V0 é feita com todos os itens, a não ser que a equipe pedagógica tenha excluído algum. Não é o caso para este banco, então a próxima ação é a correção das respostas. Ou seja, as respostas devem ser dicotomizadas. Isso pode ser feito pela função mirt::key2binary.\nÉ necessário configurar os valores iniciais e as distribuições prévias dos parâmetros. Uma forma de fazer isso é alterar a tabela de parâmetros, que é gerada com o argumento pars = 'values' da função mirt::mirt. Os valores das distribuições prévias são os mesmos do padrão do BILOG-MG. Neste programa, a média e o desvio da distribuição log-normal do parâmetro a são 1.0 e 1.64872127, respectivamente. No pacote mirt, indica-se o logaritmo da média e do desvio. Portanto, os valores são 0 e 0.5. Para o parâmetro c, que segue distribuição beta, o coeficiente alpha é obtido por 20*p+1 e o beta, por 20*(1-p)+1, onde ‘p’ é o inverso do número de alternativas. Os demais argumentos para a função mirt são: model = 1, TOL = 0.001, SE = TRUE, pars = par, onde parcorresponde à tabela de parâmetros gerada.\nPara comparar os seus resultados com os oficiais, use INEPsico::compara.sim.tri.v0.\n\n\n2.3.2 Rodada V1\nPara a Rodada V1, os itens com problemas de parâmetro, com DIF ou com ajuste ruim são excluídos. Neste livro, a Rodada V1 será feita após a exclusão conjunta de todos esses itens.\nOs itens que atendam a pelo menos um dos seguintes critérios devem ser excluídos por problemas de parâmetro:\n\na &lt; 0.5\na &gt; 4.0\nparâmetro b fora do intervalo de –2.5 a 2.5\nc &gt; 0.45\n\nA análise de DIF e desajuste é feita com quatro métodos:\n\nMaxadif (0,15) no intervalo entre P05 e P95;\nRMSD;\nMaxAjuste (0,15) no intervalo entre P05 e P95;\nRegressão logística com tamanho de efeito (p &lt; 0.05 & diferença do pseudo R2 &gt; 0.035).\n\nOs itens marcados por pelo menos um método devem ser excluídos para a Rodada V1. A função INEPsico::dif.mirt implementa esses quatro métodos.\nPara comparar os seus resultados com os oficiais, use INEPsico::compara.sim.tri.v1.",
+    "text": "2.3 Análise pela TRI\nO objetivo da análise pela TRI é calibrar os itens novos na escala existente e calcular as notas dos sujeitos no caso de aplicação oficial.\n\n2.3.1 Rodada V0\nNa Rodada V0, os itens com problema pedagógico e de bisserial são eliminados. Além disso, a tabela de parâmetros é gerada. Adotar o seguinte protocolo:\n\nEliminar itens excluídos pela equipe pedagógica\nAlterar gabarito dos itens após indicação da equipe pedagógica\nEliminar os itens com bisserial negativa (TCT somente com IME)\nDicotomizar as respostas dos itens de múltipla escolha (IME). Isso pode ser feito pela função mirt::key2binary.\nRecodificar os itens de resposta cosntruída (IRC) de acordo com as orientações da equipe pedagógica\nConfigurar os valores iniciais e as distribuições prévias dos parâmetros. Uma forma de fazer isso é alterar a tabela de parâmetros, que é gerada com o argumento pars = 'values' da função mirt::mirt. Os valores das distribuições prévias são os mesmos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição log-normal do parâmetro a são 1.0 e 1.64872127, respectivamente. No pacote mirt, indica-se o logaritmo da média e do desvio. Portanto, os valores são 0 e 0.5. Para o parâmetro c, que segue distribuição beta, o coeficiente alpha é obtido por 20*p+1 e o beta, por 20*(1-p)+1, onde ‘p’ é o inverso do número de alternativas.\nDeclarar os demais argumentos para a função mirt: model = 1, TOL = 0.001, SE = TRUE, pars = par, onde parcorresponde à tabela de parâmetros gerada.\n\nPara comparar os seus resultados com os oficiais, use INEPsico::compara.sim.tri.v0.\n\n\n2.3.2 Rodada V1\nNa Rodada V1, os itens com problemas de parâmetro, com DIF ou com ajuste ruim são excluídos. Neste livro, a Rodada V1 é feita após a exclusão conjunta de todos esses itens. Adotar o seguinte protocolo:\n\nExcluir os itens que atendam a pelo menos um dos seguintes critérios:\n\n\na &lt; 0.5\na &gt; 4.0\nparâmetro b fora do intervalo de –2.5 a 2.5\nc &gt; 0.45\n\n\nExcluir os itens com problema de ajuste. O ajuste é calculado pelo método do RMSD implementado pela função INEPsico::dif.mirt.\nCaso haja itens comuns entre grupos, esses itens devem ser avaliados quanto à existência de DIF. Os itens marcados por pelo menos um dos métodos utilizados devem ser tratados como novos no grupo atual. A função INEPsico::dif.mirt implementa os três métodos para análise, quais sejam:\n\n\nMaxadif (0,15) no intervalo entre P05 e P95;\nRMSD (0.10);\nRegressão logística com tamanho de efeito (p &lt; 0.05 & diferença do pseudo R2 &gt; 0.035).\n\nPara comparar os seus resultados com os oficiais, use INEPsico::compara.sim.tri.v1.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Protocolo de análise</span>"
     ]
@@ -92,21 +92,61 @@
   {
     "objectID": "banco_3pl.html",
     "href": "banco_3pl.html",
-    "title": "3  Banco 3PL",
+    "title": "3  Banco simulado simples",
     "section": "",
     "text": "3.1 Objetivo\nAnalisar o instrumento por meio da Teoria Clássica dos Testes (TCT) e Teoria de Resposta ao Item (TRI).",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Banco 3PL</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Banco simulado simples</span>"
     ]
   },
   {
     "objectID": "banco_3pl.html#características-do-banco",
     "href": "banco_3pl.html#características-do-banco",
-    "title": "3  Banco 3PL",
+    "title": "3  Banco simulado simples",
     "section": "3.2 Características do banco",
     "text": "3.2 Características do banco\nO objeto banco.sim.3PL do pacote INEPsico contém dois elementos. O elemento respostas é um banco com 3.000 respostas e 45 itens de múltipla escolha. As respostas possíveis são “A”, “B”, “C”, “D”, “E”, “.”, “*“. As respostas foram simuladas e todos os sujeitos responderam os 45 itens do instrumento. O elemento gabarito contém o gabarito dos 45 itens desse instrumento.\nPara acessar o banco, rode data(banco.sim.3PL, package = 'INEPsico') e em seguida use banco.sim.3PL para explorá-lo.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Banco 3PL</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Banco simulado simples</span>"
+    ]
+  },
+  {
+    "objectID": "banco.sim.BIB.aberto.html",
+    "href": "banco.sim.BIB.aberto.html",
+    "title": "4  Banco simulado em BIB com formato aberto",
+    "section": "",
+    "text": "4.1 Objetivo\nAnalisar o instrumento por meio da Teoria Clássica dos Testes (TCT) e Teoria de Resposta ao Item (TRI).",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Banco simulado em BIB com formato aberto</span>"
+    ]
+  },
+  {
+    "objectID": "banco.sim.BIB.aberto.html#características-do-banco",
+    "href": "banco.sim.BIB.aberto.html#características-do-banco",
+    "title": "4  Banco simulado em BIB com formato aberto",
+    "section": "4.2 Características do banco",
+    "text": "4.2 Características do banco\nO objeto banco.sim.BIB.aberto do pacote INEPsico contém quatro elementos. 1. respostas é um banco com 10.000 respostas e 77 itens de múltipla escolha. As respostas possíveis são “A”, “B”, “C”, “D”, “E”, “.”, “*“. As respostas foram simuladas e os sujeitos responderam a 22 itens do instrumento. O banco está aberto, ou seja, cada coluna corresponde a um item e os sujeitos que não responderam a determinado item recebem NA; 2. gabarito contém o gabarito dos 77 itens desse instrumento; 3. BIB contém o desenho do BIB; 4. itens corresponde ao dicionário dos itens.\nPara acessar o banco, rode data(banco.sim.BIB.aberto, package = 'INEPsico') e em seguida use banco.sim.BIB.aberto para explorá-lo.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Banco simulado em BIB com formato aberto</span>"
+    ]
+  },
+  {
+    "objectID": "banco.sim.BIB.fechado.html",
+    "href": "banco.sim.BIB.fechado.html",
+    "title": "5  Banco simulado em BIB com formato fechado",
+    "section": "",
+    "text": "5.1 Objetivo\nAnalisar o instrumento por meio da Teoria Clássica dos Testes (TCT) e Teoria de Resposta ao Item (TRI).",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Banco simulado em BIB com formato fechado</span>"
+    ]
+  },
+  {
+    "objectID": "banco.sim.BIB.fechado.html#características-do-banco",
+    "href": "banco.sim.BIB.fechado.html#características-do-banco",
+    "title": "5  Banco simulado em BIB com formato fechado",
+    "section": "5.2 Características do banco",
+    "text": "5.2 Características do banco\nO objeto banco.sim.BIB.fechado do pacote INEPsico contém quatro elementos. 1. respostas é um elemento data.frame correspondente ao banco de respostas, com três variáveis: a. ID identificação dos 10.000 sujeitos b. CADERNO caderno que o sujeito respondeu c. TX_RESPOSTA vetor de resposta aos 77 itens. As respostas possíveis são “A”, “B”, “C”, “D”, “E”, “.”, “*“; 2. gabarito contém o gabarito dos 77 itens desse instrumento; 3. BIB contém o desenho do BIB; 4. itens corresponde ao dicionário dos itens.\nPara acessar o banco, rode data(banco.sim.BIB.fechado, package = 'INEPsico') e em seguida use banco.sim.BIB.fechado para explorá-lo.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Banco simulado em BIB com formato fechado</span>"
     ]
   }
 ]

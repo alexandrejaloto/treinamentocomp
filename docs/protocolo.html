@@ -121,7 +121,19 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./banco_3pl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Banco 3PL</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Banco simulado simples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./banco.sim.BIB.aberto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Banco simulado em BIB com formato aberto</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./banco.sim.BIB.fechado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Banco simulado em BIB com formato fechado</span></span></a>
   </div>
 </li>
     </ul>
@@ -183,35 +195,47 @@ ul.task-list li input[type="checkbox"] {
 <li>discriminação (índice D) menor do que <code>0.20</code></li>
 </ol>
 <p>No pacote <code>INEPsico</code>, a análise é feita com a função <code>tct</code>. Caso você tenha dúvida sobre os argumentos, rode <code>?INEPsico::tct</code>.</p>
+<p>Destaca-se que a análise é feita com o banco aberto. Ou seja, cada coluna do banco corresponde a um item e os sujeitos que não responderam ao item recebem <code>NA</code>. A função <code>INEPsico::abre.banco</code> gera um banco aberto.</p>
+<p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tct</code>.</p>
 </section>
 <section id="análise-pela-tri" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="análise-pela-tri"><span class="header-section-number">2.3</span> Análise pela TRI</h2>
 <p>O objetivo da análise pela TRI é calibrar os itens novos na escala existente e calcular as notas dos sujeitos no caso de aplicação oficial.</p>
 <section id="rodada-v0" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="rodada-v0"><span class="header-section-number">2.3.1</span> Rodada V0</h3>
-<p>As únicas alterações nos itens devem ser: - as recomendadas pela equipe pedagógica após análise pela TCT e pela análise fatorial (e.g., abandono de item e alteração de gabarito) - exclusão dos itens com bisserial negativa (TCT somente com IME)</p>
-<p>A Rodada V0 é feita com todos os itens, a não ser que a equipe pedagógica tenha excluído algum. Não é o caso para este banco, então a próxima ação é a correção das respostas. Ou seja, as respostas devem ser dicotomizadas. Isso pode ser feito pela função <code>mirt::key2binary</code>.</p>
-<p>É necessário configurar os valores iniciais e as distribuições prévias dos parâmetros. Uma forma de fazer isso é alterar a tabela de parâmetros, que é gerada com o argumento <code>pars = 'values'</code> da função <code>mirt::mirt</code>. Os valores das distribuições prévias são os mesmos do padrão do BILOG-MG. Neste programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente. No pacote <code>mirt</code>, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0</code> e <code>0.5</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas. Os demais argumentos para a função <code>mirt</code> são: <code>model = 1, TOL = 0.001, SE = TRUE, pars = par</code>, onde <code>par</code>corresponde à tabela de parâmetros gerada.</p>
+<p>Na Rodada V0, os itens com problema pedagógico e de bisserial são eliminados. Além disso, a tabela de parâmetros é gerada. Adotar o seguinte protocolo:</p>
+<ol type="1">
+<li>Eliminar itens excluídos pela equipe pedagógica</li>
+<li>Alterar gabarito dos itens após indicação da equipe pedagógica</li>
+<li>Eliminar os itens com bisserial negativa (TCT somente com IME)</li>
+<li>Dicotomizar as respostas dos itens de múltipla escolha (IME). Isso pode ser feito pela função <code>mirt::key2binary</code>.</li>
+<li>Recodificar os itens de resposta cosntruída (IRC) de acordo com as orientações da equipe pedagógica</li>
+<li>Configurar os valores iniciais e as distribuições prévias dos parâmetros. Uma forma de fazer isso é alterar a tabela de parâmetros, que é gerada com o argumento <code>pars = 'values'</code> da função <code>mirt::mirt</code>. Os valores das distribuições prévias são os mesmos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente. No pacote <code>mirt</code>, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0</code> e <code>0.5</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas.</li>
+<li>Declarar os demais argumentos para a função <code>mirt</code>: <code>model = 1, TOL = 0.001, SE = TRUE, pars = par</code>, onde <code>par</code>corresponde à tabela de parâmetros gerada.</li>
+</ol>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v0</code>.</p>
 </section>
 <section id="rodada-v1" class="level3" data-number="2.3.2">
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="rodada-v1"><span class="header-section-number">2.3.2</span> Rodada V1</h3>
-<p>Para a Rodada V1, os itens com problemas de parâmetro, com DIF ou com ajuste ruim são excluídos. Neste livro, a Rodada V1 será feita após a exclusão conjunta de todos esses itens.</p>
-<p>Os itens que atendam a pelo menos um dos seguintes critérios devem ser excluídos por problemas de parâmetro:</p>
+<p>Na Rodada V1, os itens com problemas de parâmetro, com DIF ou com ajuste ruim são excluídos. Neste livro, a Rodada V1 é feita após a exclusão conjunta de todos esses itens. Adotar o seguinte protocolo:</p>
 <ol type="1">
+<li>Excluir os itens que atendam a pelo menos um dos seguintes critérios:</li>
+</ol>
+<ol type="a">
 <li><code>a &lt; 0.5</code></li>
 <li><code>a &gt; 4.0</code></li>
-<li>parâmetro b fora do intervalo de <code>–2.5 a 2.5</code></li>
+<li>parâmetro <code>b</code> fora do intervalo de <code>–2.5 a 2.5</code></li>
 <li><code>c &gt; 0.45</code></li>
 </ol>
-<p>A análise de DIF e desajuste é feita com quatro métodos:</p>
-<ol type="1">
+<ol start="2" type="1">
+<li>Excluir os itens com problema de ajuste. O ajuste é calculado pelo método do RMSD implementado pela função <code>INEPsico::dif.mirt</code>.</li>
+<li>Caso haja itens comuns entre grupos, esses itens devem ser avaliados quanto à existência de DIF. Os itens marcados por pelo menos um dos métodos utilizados devem ser tratados como novos no grupo atual. A função <code>INEPsico::dif.mirt</code> implementa os três métodos para análise, quais sejam:</li>
+</ol>
+<ol type="a">
 <li>Maxadif (0,15) no intervalo entre P05 e P95;</li>
-<li>RMSD;</li>
-<li>MaxAjuste (0,15) no intervalo entre P05 e P95;</li>
+<li>RMSD (0.10);</li>
 <li>Regressão logística com tamanho de efeito (p &lt; 0.05 &amp; diferença do pseudo R2 &gt; 0.035).</li>
 </ol>
-<p>Os itens marcados por pelo menos um método devem ser excluídos para a Rodada V1. A função <code>INEPsico::dif.mirt</code> implementa esses quatro métodos.</p>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v1</code>.</p>
 
 
@@ -643,8 +667,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./banco_3pl.html" class="pagination-link" aria-label="Banco 3PL">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Banco 3PL</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./banco_3pl.html" class="pagination-link" aria-label="Banco simulado simples">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Banco simulado simples</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,18 @@
+# Banco simulado em BIB com formato fechado
+
+## Objetivo
+
+Analisar o instrumento por meio da Teoria Clássica dos Testes (TCT) e Teoria de Resposta ao Item (TRI).
+
+## Características do banco
+
+O objeto `banco.sim.BIB.fechado` do pacote `INEPsico` contém quatro elementos.
+1. `respostas` é um elemento `data.frame` correspondente ao banco de respostas, com três variáveis:
+a. `ID` identificação dos 10.000 sujeitos
+b. `CADERNO` caderno que o sujeito respondeu
+c. `TX_RESPOSTA` vetor de resposta aos 77 itens. As respostas possíveis são "A", "B", "C", "D", "E", ".", "*";
+2. `gabarito` contém o gabarito dos 77 itens desse instrumento;
+3. `BIB` contém o desenho do BIB;
+4. `itens` corresponde ao dicionário dos itens.
+
+Para acessar o banco, rode `data(banco.sim.BIB.fechado, package = 'INEPsico')` e em seguida use `banco.sim.BIB.fechado` para explorá-lo.

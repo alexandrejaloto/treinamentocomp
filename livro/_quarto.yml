@@ -9,6 +9,8 @@ book:
     - index.qmd
     - protocolo.qmd
     - banco_3pl.qmd
+    - banco.sim.BIB.aberto.qmd
+    - banco.sim.BIB.fechado.qmd
 
 format:
   html:

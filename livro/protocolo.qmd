@@ -34,8 +34,21 @@ Na Rodada V0, os itens com problema pedagógico e de bisserial são eliminados. 
 3. Eliminar  os itens com bisserial negativa (TCT somente com IME)
 4. Dicotomizar as respostas dos itens de múltipla escolha (IME). Isso pode ser feito pela função `mirt::key2binary`.
 5. Recodificar os itens de resposta cosntruída (IRC) de acordo com as orientações da equipe pedagógica
-6. Configurar os valores iniciais e as distribuições prévias dos parâmetros. Uma forma de fazer isso é alterar a tabela de parâmetros, que é gerada com o argumento `pars = 'values'` da função `mirt::mirt`. Os valores das distribuições prévias são os mesmos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição `log-normal` do parâmetro `a` são `1.0` e `1.64872127`, respectivamente. No pacote `mirt`, indica-se o logaritmo da média e do desvio. Portanto, os valores são `0` e `0.5`. Para o parâmetro `c`, que segue distribuição `beta`, o coeficiente alpha é obtido por `20*p+1` e o beta, por `20*(1-p)+1`, onde ‘p’ é o inverso do número de alternativas.
-7. Declarar os demais argumentos para a função `mirt`: `model = 1, TOL = 0.001, SE = TRUE, pars = par`, onde `par`corresponde à tabela de parâmetros gerada.
+6. Configurar os valores iniciais e as distribuições prévias dos parâmetros.
+a. Gere a tabela de parâmetros com o argumento `pars = 'values'` da função `mirt::mirt`
+b. Altere os valores valores das distribuições prévias, que devem ser iguais aos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição `log-normal` do parâmetro `a` são `1.0` e `1.64872127`, respectivamente, na escala normal. O pacote `mirt` trabalha com a escala logística, em que a média é `1.7`. Além disso, nesse pacote, indica-se o logaritmo da média e do desvio. Portanto, os valores são `0.53062825106217`, que corresponde a `log(1.7)`, e `0.5`, que corresponde a `log(1.64872127)`. Para o parâmetro `c`, que segue distribuição `beta`, o coeficiente alpha é obtido por `20*p+1` e o beta, por `20*(1-p)+1`, onde ‘p’ é o inverso do número de alternativas.
+
+| Variável    | a                         | g (c)             |
+|:-----------:| :------------:            |:------------:     |
+| prior.type  | 'lnorm' (lognrmal)        | 'expbeta' (beta)  |
+| prior_1     | 0.53062825106217 (média)  | 5 (alpha)         |
+| prior_2     | 0.5 (desvio padrão)       | 17 (beta)         |
+| value       | 1.7                       | 0.2               |
+| lbound      | 0                         | 0                 |
+| ubound      |Inf                        | 1                 |
+
+7. Declarar os demais argumentos para a função `mirt`: `model = 1, TOL = 0.001, pars = par`, onde `par`corresponde à tabela de parâmetros gerada.
+8. Incluir o tipo de item com o argumento `itemtype`. Para itens dicotômicos (itens de múltipla escolha, IME), adotar `3PL`. Para itens politômicos (itens de resposta cosntruída, IRC), adota `graded`.
 
 Para comparar os seus resultados com os oficiais, use `INEPsico::compara.sim.tri.v0`.
 

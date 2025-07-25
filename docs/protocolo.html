@@ -210,8 +210,56 @@ ul.task-list li input[type="checkbox"] {
 <li>Eliminar os itens com bisserial negativa (TCT somente com IME)</li>
 <li>Dicotomizar as respostas dos itens de múltipla escolha (IME). Isso pode ser feito pela função <code>mirt::key2binary</code>.</li>
 <li>Recodificar os itens de resposta cosntruída (IRC) de acordo com as orientações da equipe pedagógica</li>
-<li>Configurar os valores iniciais e as distribuições prévias dos parâmetros. Uma forma de fazer isso é alterar a tabela de parâmetros, que é gerada com o argumento <code>pars = 'values'</code> da função <code>mirt::mirt</code>. Os valores das distribuições prévias são os mesmos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente. No pacote <code>mirt</code>, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0</code> e <code>0.5</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas.</li>
-<li>Declarar os demais argumentos para a função <code>mirt</code>: <code>model = 1, TOL = 0.001, SE = TRUE, pars = par</code>, onde <code>par</code>corresponde à tabela de parâmetros gerada.</li>
+<li>Configurar os valores iniciais e as distribuições prévias dos parâmetros.</li>
+</ol>
+<ol type="a">
+<li>Gere a tabela de parâmetros com o argumento <code>pars = 'values'</code> da função <code>mirt::mirt</code></li>
+<li>Altere os valores valores das distribuições prévias, que devem ser iguais aos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente, na escala normal. O pacote <code>mirt</code> trabalha com a escala logística, em que a média é <code>1.7</code>. Além disso, nesse pacote, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0.53062825106217</code>, que corresponde a <code>log(1.7)</code>, e <code>0.5</code>, que corresponde a <code>log(1.64872127)</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas.</li>
+</ol>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Variável</th>
+<th style="text-align: center;">a</th>
+<th style="text-align: center;">g (c)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">prior.type</td>
+<td style="text-align: center;">‘lnorm’ (lognrmal)</td>
+<td style="text-align: center;">‘expbeta’ (beta)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">prior_1</td>
+<td style="text-align: center;">0.53062825106217 (média)</td>
+<td style="text-align: center;">5 (alpha)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">prior_2</td>
+<td style="text-align: center;">0.5 (desvio padrão)</td>
+<td style="text-align: center;">17 (beta)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">value</td>
+<td style="text-align: center;">1.7</td>
+<td style="text-align: center;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lbound</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ubound</td>
+<td style="text-align: center;">Inf</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<ol start="7" type="1">
+<li>Declarar os demais argumentos para a função <code>mirt</code>: <code>model = 1, TOL = 0.001, pars = par</code>, onde <code>par</code>corresponde à tabela de parâmetros gerada.</li>
+<li>Incluir o tipo de item com o argumento <code>itemtype</code>. Para itens dicotômicos (itens de múltipla escolha, IME), adotar <code>3PL</code>. Para itens politômicos (itens de resposta cosntruída, IRC), adota <code>graded</code>.</li>
 </ol>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v0</code>.</p>
 </section>

@@ -207,14 +207,16 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>Eliminar itens excluídos pela equipe pedagógica</li>
 <li>Alterar gabarito dos itens após indicação da equipe pedagógica</li>
-<li>Eliminar os itens com bisserial negativa (TCT somente com IME)</li>
-<li>Dicotomizar as respostas dos itens de múltipla escolha (IME). Isso pode ser feito pela função <code>mirt::key2binary</code>.</li>
-<li>Recodificar os itens de resposta cosntruída (IRC) de acordo com as orientações da equipe pedagógica</li>
+<li>Eliminar os itens com bisserial negativa (TCT somente com itens de múltipla escolha, IME)</li>
+<li>Ordenar os itens de acordo com o seu bloco e posição no bloco (quando houver cadernos diferentes)</li>
+<li>Dicotomizar as respostas dos IME. Isso pode ser feito pela função <code>mirt::key2binary</code>.</li>
+<li>Ordenar o banco pela variável de identificação do sujeito</li>
+<li>Recodificar os itens de resposta construída (IRC) de acordo com as orientações da equipe pedagógica</li>
 <li>Configurar os valores iniciais e as distribuições prévias dos parâmetros.</li>
 </ol>
 <ol type="a">
 <li>Gere a tabela de parâmetros com o argumento <code>pars = 'values'</code> da função <code>mirt::mirt</code></li>
-<li>Altere os valores valores das distribuições prévias, que devem ser iguais aos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente, na escala normal. O pacote <code>mirt</code> trabalha com a escala logística, em que a média é <code>1.7</code>. Além disso, nesse pacote, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0.53062825106217</code>, que corresponde a <code>log(1.7)</code>, e <code>0.5</code>, que corresponde a <code>log(1.64872127)</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas.</li>
+<li>Altere os valores das distribuições prévias, que devem ser iguais aos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente, na escala normal. O pacote <code>mirt</code> trabalha com a escala logística, em que a média é <code>1.7</code>. Além disso, nesse pacote, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0.53062825106217</code>, que corresponde a <code>log(1.7)</code>, e <code>0.5</code>, que corresponde a <code>log(1.64872127)</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas.</li>
 </ol>
 <table class="caption-top table">
 <thead>
@@ -257,9 +259,9 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<ol start="7" type="1">
-<li>Declarar os demais argumentos para a função <code>mirt</code>: <code>model = 1, TOL = 0.001, pars = par</code>, onde <code>par</code>corresponde à tabela de parâmetros gerada.</li>
-<li>Incluir o tipo de item com o argumento <code>itemtype</code>. Para itens dicotômicos (itens de múltipla escolha, IME), adotar <code>3PL</code>. Para itens politômicos (itens de resposta cosntruída, IRC), adota <code>graded</code>.</li>
+<ol start="9" type="1">
+<li>Declarar os demais argumentos para a função <code>mirt</code>: <code>model = 1, TOL = 0.001, pars = par</code>, onde <code>par</code> corresponde à tabela de parâmetros gerada.</li>
+<li>Incluir o tipo de item com o argumento <code>itemtype</code>. Para itens dicotômicos (IME), adotar <code>3PL</code>. Para itens politômicos (IRC), adota <code>graded</code>.</li>
 </ol>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v0</code>.</p>
 </section>
@@ -272,7 +274,7 @@ ul.task-list li input[type="checkbox"] {
 <ol type="a">
 <li><code>a &lt; 0.5</code></li>
 <li><code>a &gt; 4.0</code></li>
-<li>parâmetro <code>b</code> fora do intervalo de <code>–2.5 a 2.5</code></li>
+<li>todos os parâmetros <code>b</code> fora do intervalo de <code>–2.5 a 2.5</code></li>
 <li><code>c &gt; 0.45</code></li>
 </ol>
 <ol start="2" type="1">
@@ -283,6 +285,10 @@ ul.task-list li input[type="checkbox"] {
 <li>Maxadif (0,15) no intervalo entre P05 e P95;</li>
 <li>RMSD (0.10);</li>
 <li>Regressão logística com tamanho de efeito (p &lt; 0.05 &amp; diferença do pseudo R2 &gt; 0.035).</li>
+</ol>
+<ol start="4" type="1">
+<li>A exclusão deve ser feita atribuindo <code>a1=0</code> e <code>est=FALSE</code> na tabela de parâmetros para os itens excluídos</li>
+<li>Rodar novamente a V1 até que não haja itens com problemas</li>
 </ol>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v1</code>.</p>
 

@@ -136,6 +136,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Banco simulado em BIB com formato fechado</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./banco.sim.equalizacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Banco para equalização</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -196,6 +202,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>No pacote <code>INEPsico</code>, a análise é feita com a função <code>tct</code>. Caso você tenha dúvida sobre os argumentos, rode <code>?INEPsico::tct</code>.</p>
 <p>Destaca-se que a análise é feita com o banco aberto. Ou seja, cada coluna do banco corresponde a um item e os sujeitos que não responderam ao item recebem <code>NA</code>. A função <code>INEPsico::abre.banco</code> gera um banco aberto.</p>
+<p>Neste livro, o escore considerado na análise pela TCT corresponde à soma de acertos, ou seja, não se utiliza o normit.</p>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tct</code>.</p>
 </section>
 <section id="análise-pela-tri" class="level2" data-number="2.3">
@@ -216,7 +223,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <ol type="a">
 <li>Gere a tabela de parâmetros com o argumento <code>pars = 'values'</code> da função <code>mirt::mirt</code></li>
-<li>Altere os valores das distribuições prévias, que devem ser iguais aos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente, na escala normal. O pacote <code>mirt</code> trabalha com a escala logística, em que a média é <code>1.7</code>. Além disso, nesse pacote, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0.53062825106217</code>, que corresponde a <code>log(1.7)</code>, e <code>0.5</code>, que corresponde a <code>log(1.64872127)</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas.</li>
+<li>Altere os valores das distribuições prévias, que devem ser iguais aos do padrão do BILOG-MG. Nesse programa, a média e o desvio da distribuição <code>log-normal</code> do parâmetro <code>a</code> são <code>1.0</code> e <code>1.64872127</code>, respectivamente, na escala normal. O pacote <code>mirt</code> trabalha com a escala logística, em que a média é <code>1.7</code>. Além disso, nesse pacote, indica-se o logaritmo da média e do desvio. Portanto, os valores são <code>0.53062825106217</code>, que corresponde a <code>log(1.7)</code>, e <code>0.5</code>, que corresponde a <code>log(1.64872127)</code>. Para o parâmetro <code>c</code>, que segue distribuição <code>beta</code>, o coeficiente alpha é obtido por <code>20*p+1</code> e o beta, por <code>20*(1-p)+1</code>, onde ‘p’ é o inverso do número de alternativas. Em todas as análises serão utilizados os valroes para cinco alternativas. Assim, os valores devem ser:</li>
 </ol>
 <table class="caption-top table">
 <thead>
@@ -259,9 +266,12 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<ol start="3" type="a">
+<li>Caso haja itens comuns a uma aplicação anterior, seus parâmetros devem ser fixados. Para isso, substitua os parâmetros iniciais pelos valores a serem fixados e defina <code>est = FALSE</code> para esses itens.</li>
+</ol>
 <ol start="9" type="1">
 <li>Declarar os demais argumentos para a função <code>mirt</code>: <code>model = 1, TOL = 0.001, pars = par</code>, onde <code>par</code> corresponde à tabela de parâmetros gerada.</li>
-<li>Incluir o tipo de item com o argumento <code>itemtype</code>. Para itens dicotômicos (IME), adotar <code>3PL</code>. Para itens politômicos (IRC), adota <code>graded</code>.</li>
+<li>Incluir o tipo de item com o argumento <code>itemtype</code>. Para itens dicotômicos (IME), adotar <code>3PL</code>. Para itens politômicos (IRC), adotar <code>graded</code>.</li>
 </ol>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v0</code>.</p>
 </section>
@@ -269,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="rodada-v1"><span class="header-section-number">2.3.2</span> Rodada V1</h3>
 <p>Na Rodada V1, os itens com problemas de parâmetro, com DIF ou com ajuste ruim são excluídos. Neste livro, a Rodada V1 é feita após a exclusão conjunta de todos esses itens. Adotar o seguinte protocolo:</p>
 <ol type="1">
-<li>Excluir os itens que atendam a pelo menos um dos seguintes critérios:</li>
+<li>Excluir os itens <em>novos</em> com algum problema de parâmetros. Esses itens são os que atendem a pelo menos um dos seguintes critérios:</li>
 </ol>
 <ol type="a">
 <li><code>a &lt; 0.5</code></li>
@@ -278,16 +288,8 @@ ul.task-list li input[type="checkbox"] {
 <li><code>c &gt; 0.45</code></li>
 </ol>
 <ol start="2" type="1">
-<li>Excluir os itens com problema de ajuste. O ajuste é calculado pelo método do RMSD implementado pela função <code>INEPsico::dif.mirt</code>.</li>
-<li>Caso haja itens comuns entre grupos, esses itens devem ser avaliados quanto à existência de DIF. Os itens marcados por pelo menos um dos métodos utilizados devem ser tratados como novos no grupo atual. A função <code>INEPsico::dif.mirt</code> implementa os três métodos para análise, quais sejam:</li>
-</ol>
-<ol type="a">
-<li>Maxadif (0,15) no intervalo entre P05 e P95;</li>
-<li>RMSD (0.10);</li>
-<li>Regressão logística com tamanho de efeito (p &lt; 0.05 &amp; diferença do pseudo R2 &gt; 0.035).</li>
-</ol>
-<ol start="4" type="1">
-<li>A exclusão deve ser feita atribuindo <code>a1=0</code> e <code>est=FALSE</code> na tabela de parâmetros para os itens excluídos</li>
+<li>Excluir os itens com problema de ajuste. O ajuste é calculado pelo método do RMSD. Valores acima de 0.10 são adotados como ponto de corte neste livro. No pacote <code>INEPsico</code>, o método é implementado pela função <code>dif.mirt</code>, que retorna os itens com problema no elemento <code>rmsd.pisa</code>. Quando o item é novo, a qualidade da calibração será avaliada pelo RMSD. Quando o item é comum, essa medida será usada para verificar se há DIF. Se um item novo tiver problema de ajuste, ele deve ser excluído. Se um item comum tiver problema de ajuste, ele deve ser recalibrado (<code>est = TRUE</code>).</li>
+<li>A exclusão do item deve ser feita atribuindo-se <code>a=0</code> e <code>est=FALSE</code> na tabela de parâmetros para os itens excluídos</li>
 <li>Rodar novamente a V1 até que não haja itens com problemas</li>
 </ol>
 <p>Para comparar os seus resultados com os oficiais, use <code>INEPsico::compara.sim.tri.v1</code>.</p>

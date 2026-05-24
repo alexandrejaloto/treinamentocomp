@@ -11,6 +11,7 @@ book:
     - banco_3pl.qmd
     - banco.sim.BIB.aberto.qmd
     - banco.sim.BIB.fechado.qmd
+    - banco.sim.equalizacao.qmd
 
 format:
   html:

@@ -1,0 +1,19 @@
+# Banco para equalização
+
+## Objetivo
+
+Equalizar o instrumento atual com um anterior por meio de itens comuns.
+
+## Características do banco
+
+O objeto `banco.sim.equalizacao` do pacote `INEPsico` contém cinco elementos.
+1. `respostas` é um elemento `data.frame` correspondente ao banco de respostas, com três variáveis:
+a. `ID` identificação dos 10.000 sujeitos
+b. `CADERNO` caderno que o sujeito respondeu
+c. `TX_RESPOSTA` vetor de resposta aos 77 itens. As respostas possíveis são "A", "B", "C", "D", "E", ".", "*";
+2. `gabarito` contém o gabarito dos 77 itens desse instrumento;
+3. `BIB` contém o desenho do BIB;
+4. `itens` corresponde ao dicionário dos itens.
+5. `itens.comuns` contém os itens comuns e seus parâmetros na TRI
+
+Para acessar o banco, rode `data(banco.sim.equalizacao, package = 'INEPsico')` e em seguida use `banco.sim.equalizacao` para explorá-lo.
